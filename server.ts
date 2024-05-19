@@ -1,21 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const { dbConn } = require('./config/db.ts');
+import app from './src/app';
+import config from './src/config/config';
+import connectDB from './src/config/db';
 
-dotenv.config();
+const startServer = async () => {
+    const port = config.port;
 
-const app = express();
-app.use(express.json());
-app.use(bodyParser());
-app.use(cors())
-dbConn();
+    // <-- Connect Database -->
+    await connectDB();
 
-const port = process.env.PORT
+    app.listen(port, () => {
+        console.log(`Server is running at port: ${port}`);
+    });
+}
 
-
-app.listen(port, () => {
-    console.log(`Server is running at port: ${port}`);
-})
-
+startServer();
