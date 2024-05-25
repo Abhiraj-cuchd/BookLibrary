@@ -9,6 +9,8 @@ const startServer = async () => {
     // <-- Connect Database -->
     await connectDB();
 
+
+    // <---- Global error Handler ---->
     app.use(globalErrorHandler)
 
     app.listen(port, () => {
